@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check PNR Status</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            padding: 40px;
+            background-image: url(./Images/pnr.avif);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .child1 {
+            width: 40%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid;
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(3.5px);
+            -webkit-backdrop-filter: blur(3.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .child2 {
+            width: 45%;
+            height: 75%;
+            border: 2px solid;
+            padding-left: 20px;
+            margin-left: 4%;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .child1 p {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        input,
+        button {
+            width: 95%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .status-info {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .status-info p{
+            margin-top: 10px;
+        }
+
+        .home {
+            display: block;
+            margin-top: 2%;
+            color: black;
+            text-decoration: underline;
+            text-align: center;
+        }
+
+        .home:hover {
+            color: chocolate;
+        }
+
+
+        @media screen and (min-width:350px) and (max-width:770px){
+            .container{
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+            }
+            .child1{
+                width: 95%;
+                height: 20%;
+            }
+            .child2{
+                width: 80%;
+                height: 75%;
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="child1">
+            <p><span style="color: red;">Happy</span> <span style="color: red;">Journey..</p>
+            <p>Thank you for Choosing our Services..</p>
+        </div>
+        <div class="child2">
+            <h1>Check PNR Status</h1>
+            <form id="pnrForm">
+                <label for="pnrNumber">Enter PNR Number:</label>
+                <input type="text" id="pnrNumber" name="pnrNumber" placeholder="Enter PNR Number">
+                <button type="submit">Get Status</button>
+
+                <a href="./index.html" class="home">Home</a>
+
+            </form>
+
+            <div class="status-info" id="statusInfo">
+                <h2>PNR Status</h2>
+                <p id="statusDetails">Enter a PNR number to check its status.</p><br>
+                <span id="info"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pnrNumber = document.getElementById('pnrNumber');
+        let info = document.getElementById("info");
+
+        document.getElementById('pnrForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (pnrNumber.value==="") {
+                alert("Please enter PNR number");
+                return;
+            }
+            else {
+                let arr = [1234567890, 1122334455, 1234512345, 1231234545, 1111222233, 1234123456];
+                random(arr);
+            }
+        });
+
+
+        function random(arr) {
+            let a = Math.floor((Math.random() * 10))
+            result = arr[a];
+
+            console.log(result);
+
+            if (pnrNumber.value == result) {
+                info.innerHTML = `<b>Confirmed - Train No: 12345, Date: 20-Oct-2024</b>`;
+            }
+            else if (pnrNumber.value == result) {
+                info.innerHTML = `<b>Waitlisted - Train No: 54321, Date: 21-Oct-2024</b>`;
+            }
+            else {
+                info.innerHTML = `<b>Invalid PNR Number. Please check and try again.</b>`;
+            }   
+
+        }
+    </script>
+
+</body>
+
+</html>

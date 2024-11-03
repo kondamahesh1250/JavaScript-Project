@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-decoration: none;
+            scroll-behavior: smooth;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            height: 100vh;
+            border-radius: 5px;
+            padding: 30px;
+            align-items: center;
+            justify-content: center;
+            background-image: url(./Images/book.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .child1 {
+            width: 75%;
+            height: 50%;
+            border: 2px solid;
+            margin-left: 4%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+            border-radius: 10px;
+        }
+
+        .para {
+            font-size: 2rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .child2 {
+            width: 80%;
+            height: 80%;
+            border: 2px solid;
+            background-color: rgb(221, 213, 213);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 8%;
+            margin-bottom: 4%;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin-top: 30px;
+            width: 90%;
+            border-radius: 10px;
+
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .suggestions {
+            max-height: 150px;
+            overflow-y: auto;
+            width: 90%;
+            margin: 0 auto;
+            background-color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: gray;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #757373;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        #trainResults {
+            margin-top: 20px;
+        }
+
+        .train-info {
+            background-color: #f1f1f1;
+            margin-top: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .home {
+            display: block;
+            margin-top: 2%;
+            color: black;
+            text-decoration: underline;
+            text-align: center;
+        }
+
+        .home:hover {
+            color: chocolate;
+        }
+
+        @media screen and (min-width:350px) and (max-width:770px) {
+            .container {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .child1 {
+                width: 90%;
+                height: 25%;
+                margin: auto;
+            }
+
+            .child2 {
+                width: 85%;
+                height: 75%;
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="child1">
+            <p class="para"><span style="color: darkgoldenrod;">Go safe,</span> move safe, <span
+                    style="color: white;">stay safe,</span> <span style="color: green;">leave safe</span> & then back
+                safe...</p>
+        </div>
+        <div class="child2">
+            <h1>Book Tickets</h1>
+
+            <!-- Input fields for stations and search button -->
+            <input type="text" id="startStation" placeholder="Start Station" onkeyup="showSuggestions('startStation')"
+                autocomplete="off" />
+            <div id="startSuggestions" class="suggestions"></div>
+
+            <input type="text" id="endStation" placeholder="End Station" onkeyup="showSuggestions('endStation')"
+                autocomplete="off" />
+            <div id="endSuggestions" class="suggestions"></div>
+
+            <button onclick="bookTicket()">BOOK NOW</button>
+
+            <a href="./index.html" class="home">Home</a>
+
+            <!-- Container for results -->
+            <!-- <div id="trainResults"></div> -->
+
+
+
+
+        </div>
+    </div>
+
+    <script>
+
+        let data = JSON.parse(localStorage.getItem("data")) || [];
+
+
+        function showSuggestions(inputId) {
+            const input = document.getElementById(inputId).value.toLowerCase();
+            const suggestionsDiv = document.getElementById(inputId === "startStation" ? "startSuggestions" : "endSuggestions");
+            suggestionsDiv.innerHTML = ""; // Clear previous suggestions
+
+            const filteredStations = data["stations"].filter(station =>
+                station.loc.toLowerCase().includes(input)
+                // || station.code.toLowerCase().includes(input)
+            );
+            console.log(filteredStations)
+
+            if (filteredStations.length > 0) {
+                filteredStations.forEach(station => {
+                    const suggestionItem = document.createElement("div");
+                    suggestionItem.className = "suggestion-item";
+                    suggestionItem.innerHTML = `${station.loc}`;
+                    suggestionItem.onclick = () => selectSuggestion(station.loc, inputId);
+                    suggestionsDiv.appendChild(suggestionItem);
+                });
+                suggestionsDiv.style.display = "block";
+            } else {
+                suggestionsDiv.style.display = "none";
+            }
+        }
+
+        function selectSuggestion(stationName, inputId) {
+            document.getElementById(inputId).value = stationName;
+            const suggestionsDiv = document.getElementById(inputId === "startStation" ? "startSuggestions" : "endSuggestions");
+            suggestionsDiv.style.display = "none";
+        }
+
+        function bookTicket() {
+            const startStation = document.getElementById("startStation").value.toLowerCase();
+            const endStation = document.getElementById("endStation").value.toLowerCase();
+            //  trainResultsDiv.innerHTML = ""; // Clear previous results
+
+            const filteredTrains = data["trains"].filter(train =>
+                train.fromStation.toLowerCase() === startStation && train.toStation.toLowerCase() === endStation
+            );
+
+            if (startStation == "" || endStation == "") {
+                alert("Please enter station name");
+                return;
+            }
+            if (filteredTrains.length > 0) {
+
+                let arr = [2194816574, 3765129480, 8152043796, 5408261732, 9843065714,
+                    1523740895, 4781256934, 6234791820, 3048756129, 9573618042];
+                random(arr);
+
+            }
+            else {
+                alert("No trains found between these stations.")
+            }
+
+
+
+        }
+
+        function random(arr) {
+            let a = Math.floor((Math.random() * 10))
+            result = `Your tickets are confirmed with ticket number ${arr[a]} !!`;
+            alert(result)
+        }
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // let url = "http://localhost:5000/trainsbetweenstation";
+            let url = "https://kondamahesh1250.github.io/JS-Json-Server/train.json";
+
+            loadData(url);
+        });
+
+        async function loadData(url) {
+            let response = await fetch(url);
+            let data = await response.json();
+            data = data["trainsbetweenstation"];
+            localStorage.setItem("data", JSON.stringify(data));
+        }
+    </script>
+
+</body>
+
+</html>

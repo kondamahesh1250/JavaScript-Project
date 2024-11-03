@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Train</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .main {
+            background-image: url(./Images/945591-updated-indian-railways-data-1500.webp);
+            height: 100vh;
+            opacity: 0.8;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .child1 {
+            text-align: center;
+            border: 2px solid none;
+            width: 35%;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: 2%;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(9px);
+            -webkit-backdrop-filter: blur(9px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .child1 p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: black;
+        }
+
+        .child2 {
+            width: 40%;
+            height: 75%;
+            border: 2px solid 0;
+            margin-left: 15%;
+            max-width: 600px;
+            /* margin: auto; */
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            opacity: 0.9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            margin-top: 5%;
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .suggestions {
+            display: none;
+            max-height: 150px;
+            overflow-y: auto;
+            width: 90%;
+            margin: 0 auto;
+            background-color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: gray;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #757373;
+        }
+        
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        .station-info {
+            background-color: #f1f1f1;
+            margin-top: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .home {
+            display: block;
+            margin-top: 2%;
+            color: black;
+            text-decoration: underline;
+            text-align: center;
+        }
+
+        .home:hover {
+            color: chocolate;
+        }
+
+        @media screen and (min-width:350px) and (max-width:770px){
+            .main{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100vh;
+                justify-content: center;
+                gap: 20px;
+            }
+            .child1{
+                width: 85%;
+                height: 20%;
+            }
+            .child2{
+                width: 85%;
+                height: 65%;
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="child1">
+            <p>Choose <span style="color: orange;">Railway</span> Services</p>
+            <p>Ensure <span style="color: green;">Safe</span> Journey.</p>
+        </div>
+        <div class="child2">
+
+            <div class="form-section">
+
+                <!-- <div class="container"> -->
+                <h1>Train Search</h1>
+
+                <!-- Input field for search -->
+                <input type="text" id="searchInput" placeholder="Enter station name" onkeyup="showSuggestions()"
+                    autocomplete="off" />
+
+                <!-- Dynamic dropdown for suggestions -->
+                <div id="suggestions" class="suggestions"></div>
+
+                <button onclick="searchStation()">Search</button>
+
+                <a href="./index.html" class="home">Home</a>
+
+            </div>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+
+
+        let data = JSON.parse(localStorage.getItem("data")) || [];
+        console.log(data);
+
+
+        function showSuggestions() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const suggestionsDiv = document.getElementById("suggestions");
+            suggestionsDiv.innerHTML = ""; // Clear previous suggestions
+
+            const filteredStations = data.filter(station =>
+                station.name.toLowerCase().includes(input) ||
+                station.code.toLowerCase().includes(input)
+            );
+            // Show suggestions if there are matches
+          
+            if (filteredStations.length > 0) {
+                filteredStations.forEach(station => {
+                    const suggestionItem = document.createElement("div");
+                    suggestionItem.className = "suggestion-item";
+                    suggestionItem.innerHTML = `${station.code} ${station.name}`;
+                    suggestionItem.onclick = () => selectSuggestion(station.name);
+                    suggestionsDiv.appendChild(suggestionItem);
+                });
+                suggestionsDiv.style.display = "block";
+            } else {
+                suggestionsDiv.style.display = "none";
+            }
+        }
+
+        function selectSuggestion(stationName) {
+            document.getElementById("searchInput").value = stationName;
+            document.getElementById("suggestions").style.display = "none"; // Hide suggestions after selection
+        }
+
+        function searchStation() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = ""; // Clear previous results
+
+            const filteredStations = data.filter(station =>
+                station.name.toLowerCase().includes(input) ||
+                station.code.toLowerCase() === input);
+
+                if(input==""){
+                alert("Please enter train name or code");
+                return;
+            }
+
+            if (filteredStations.length > 0) {
+                filteredStations.forEach(station => {
+                    const stationInfo = document.createElement("div");
+                    stationInfo.className = "station-info";
+                    stationInfo.innerHTML = `<strong>Train Type:</strong> ${station.type} <br><br>
+                                             <strong>Arrival Time: </strong> ${station.arrival} <br><br>
+                                             <strong>Depature Time: </strong> ${station.depature}`;
+                    resultsDiv.appendChild(stationInfo);
+                });
+            } else {
+                resultsDiv.innerHTML = "<p>No stations found.</p>";
+            }
+        }
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // let url = "http://localhost:5000/searchtrain";
+            let url = "https://kondamahesh1250.github.io/JS-Json-Server/train.json";
+
+            loadData(url);
+        })
+
+        async function loadData(url) {
+            let response = await fetch(url);
+            let data = await response.json();
+            data = data["searchtrain"];
+            localStorage.setItem("data", JSON.stringify(data));
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookYourTrain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <style>
+        * {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    position: sticky;
+    top: 0;
+}
+
+.section-1 {
+    background-image: url(./Images/main.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.logo {
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.logo img {
+    width: 6%;
+}
+
+.top_info {
+    display: flex;
+    align-items: center;
+}
+
+.logo_title {
+    margin-left: 2%;
+    font-size: 1.2rem;
+}
+
+.logo-name {
+    font-size: 1.4rem;
+    border-radius: 2px;
+}
+
+.sidebar {
+    display: none;
+}
+
+/* .nav_info {
+    width: 100%;
+    height: 50px;    
+} */
+
+.nav_bar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 8vh;
+    align-items: center;
+    background-color: rgb(87, 84, 84);
+}
+
+.nav_items {
+    display: flex;
+    gap: 30px;
+    position: relative;
+    padding-left: 2%;
+}
+
+.nav_items li a {
+    color: white;
+    font-size: 1rem;
+
+}
+
+.nav_items a:hover{
+    color: steelblue;
+}
+
+.user_details {
+    display: flex;
+    gap: 20px;
+    padding-right: 20px;
+}
+
+.user_details li a {
+    text-align: center;
+    border: 0 solid;
+    display: inline-block;
+    color: white;
+    border-radius: 20%;
+    background-color: rgb(134, 134, 148);
+    width: 80px;
+    padding: 8%;
+}
+
+.user_details a:hover{
+    color: skyblue;
+}
+
+.train_services {
+    position: absolute;
+    top: 100%;
+    left: 8%;
+    text-align: start;
+    background-color: grey;
+    width: 18vw;
+    max-height: 0px;
+    overflow: hidden;
+    border-radius: 5px;
+    transition: max-height 0.5s;
+}
+
+.train_services.open-menu {
+    max-height: 300px;
+}
+
+.train_services li a {
+    color: white;
+
+}
+
+.train_services li {
+    padding: 1vw;
+
+}
+
+.track {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(245, 250, 249);
+}
+
+.wel {
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 2%;
+
+}
+
+.section-2 {
+    width: 100%;
+    height: auto;
+    background-color: rgb(158, 146, 168);
+}
+
+.section-2 h1 {
+    font-size: 1.6rem;
+    padding-top: 2%;
+    margin-left: 2%;
+    margin-bottom: 1%;
+    color: white;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: 2%;
+
+}
+
+.gallery .gallery-item {
+    padding: 4%;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 80%;
+}
+
+.section-3-child3 div i {
+    color: rgb(218, 105, 64);
+    font-size: 3rem;
+    padding: 6%;
+    background-color: white;
+    border-radius: 50px;
+
+}
+
+.section-3 {
+    width: 100%;
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+}
+
+.section-3 .section-3-main1 h1 {
+    margin-top: 2%;
+    margin-left: 2%;
+    color: white;
+}
+
+.section-3-main1 {
+    background-color: rgb(64, 148, 163);
+}
+
+.section-3-main2 {
+    padding: 2%;
+    background-color: rgb(197, 180, 192);
+}
+
+.section-3-main2 h2 {
+    margin-bottom: 2%;
+    color: white;
+}
+
+.section-3-main2 p {
+    font-size: 1rem;
+    text-align: justify;
+}
+
+.main-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 5%;
+}
+
+.section-3-child3 div {
+    text-align: center;
+}
+
+.section-3-child3 p {
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 5%;
+    color: white;
+}
+
+footer {
+    background-color: #2c2c2c;
+    color: #fff;
+    padding: 40px 0;
+    height: 50%;
+    padding-top: 2%;
+}
+
+.container3 {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    margin: 10px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.contact ul li {
+    margin-bottom: 15px;
+}
+
+.blog-posts .post {
+    margin-bottom: 20px;
+}
+
+.blog-posts .post img {
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 10px;
+}
+
+.blog-posts .post p {
+    font-size: 14px;
+}
+
+.blog-posts .post small {
+    font-size: 12px;
+    color: #999;
+}
+
+.subscribe p {
+    margin-bottom: 10px;
+}
+
+.subscribe form input {
+    padding: 10px;
+    width: calc(100% - 60px);
+    margin-right: 10px;
+    border: none;
+    border-radius: 3px;
+}
+
+.subscribe form button {
+    padding: 10px;
+    background-color: #ffcc00;
+    border: none;
+    color: #000;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.social-media a {
+    margin-right: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.social-media a:hover {
+    color: #ffcc00;
+}
+
+@media screen and (min-width:350px) and (max-width:770px) {
+
+    .logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px !important;
+    }
+
+    .top_info {
+        display: flex;
+    }
+
+    .top_img {
+        width: 8% !important;
+    }
+
+    .sidebar {
+        display: block;
+        position: relative;
+        right: 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .nav_bar {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        height: auto;
+        border-radius: 5px;
+        background-color: #ffcc00;
+        float: right;
+        gap: 10px;
+        position: relative;
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.5s;
+
+    }
+
+    .nav_bar.open-items {
+        max-height: 350px;
+    }
+
+    .nav_items {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .nav_items a {
+        font-size: 0.8rem !important;
+    }
+
+    .user_details {
+        display: flex;
+        flex-direction: column;
+        gap: 5px !important;
+        padding: 10px;
+    }
+
+    .user_details li a {
+        font-size: 0.8rem;
+        background-color: #ffcc00;
+
+    }
+
+    .train_services {
+        position: absolute;
+        top: 100%;
+        left: 5%;
+        text-align: start;
+        background-color: grey;
+        width: 45vw;
+        max-height: 0px;
+        overflow: hidden;
+        border-radius: 5px;
+        transition: max-height 0.2s;
+    }
+
+    .train_services.open-menu {
+        max-height: 300px;
+    }
+
+    .train_services a {
+        font-size: 0.8rem;
+    }
+
+    .section-1 p {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    .section-2 {
+        padding: 10px;
+    }
+
+    .section-2 h1 {
+        font-size: 1.1rem;
+        margin-bottom: 2%;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+
+    }
+
+    .gallery-item img {
+        width: 100%;
+    }
+
+    .section-3-main1 {
+        padding: 15px;
+    }
+
+    .section-3-main1 h1 {
+        font-size: 1rem;
+        margin-bottom: 2%;
+    }
+
+    .section-3-para {
+        font-size: 0.8rem !important;
+    }
+
+    .main-3 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .section-3-child3 {
+        padding: 10px;
+    }
+
+    .section-3-main2 {
+        padding: 15px;
+    }
+
+    .section-3-main2 h2 {
+        font-size: 1rem;
+        margin-bottom: 4%;
+    }
+
+    .section-3-main2 p {
+        font-size: 0.8rem;
+    }
+
+    .container3 h3 {
+        font-size: 1rem;
+    }
+
+    .container3 a,
+    p,
+    li {
+        font-size: 0.8rem;
+    }
+
+    .bottom {
+        margin-left: 5% !important;
+        margin-top: 2%;
+    }
+
+    .bottom_img {
+        width: 8% !important;
+    }
+
+}
+
+@media screen and (min-width:770px) and (max-width:2440px) {
+    header{
+        position: fixed;
+        width: 100%;
+    }
+}
+    </style>
+</head>
+
+<body id="body">
+    <header>
+        <nav class="logo">
+            <div class="top_info">
+            <img src="./Images/logo.png" alt=""
+                style="background-color: white; margin-left: 1%; border-radius: 5px;" class="top_img">
+            <span class="logo_title"><i class="logo-name">Book<span style="color: orange;">Y</span>ourTrain</i></span>
+            </div>
+            <div>
+            <i class="fa-solid fa-bars sidebar" onclick="toggleBar()" id="bar"></i>
+            </div>
+        </nav>
+        <nav class="nav_info">
+            <div class="nav_bar" id="items">
+                <div class="nav_items">
+                    <li><i class="fa-solid fa-house" style="color: white;"></i></i> <a href="#head">Home</a></li>
+                    <li><i class="fa-solid fa-sliders" style="color: white;"></i> <a href="#" onclick="toggleMenu()"
+                            id="service">Services</a></li>
+                    <li><i class="fa-solid fa-image" style="color: white;"></i> <a href="#section2">Gallery</a></li>
+                    <li><i class="fa-solid fa-info" style="color: white;"></i> <a href="#section3">About</a></li>
+                    <li><i class="fa-solid fa-square-phone" style="color: white;"></i> <a href="#section4">Contact
+                            Us</a></li>
+                </div>
+                <div class="user_details">
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Sign Up</a></li>
+                </div>
+            </div>
+
+            <div class="train_services" id="subMenu">
+                <li><i class="fa-solid fa-magnifying-glass" style="color: white;"></i> <a
+                        href="./searchstation.html">Search Station</a></li>
+                <li><i class="fa-solid fa-circle-check" style="color: white;"></i> <a href="./bookticket.html">Book
+                        Ticket</a></li>
+                <li><i class="fa-solid fa-train" style="color: white;"></i> <a href="./searchtrain.html">Search
+                        Train</a></li>
+                <li><i class="fa-solid fa-train-subway" style="color: white;"></i> <a
+                        href="./trainsbetweenstations.html">Trains Between Stations</a></li>
+                <li><i class="fa-regular fa-calendar" style="color: white;"></i> <a href="./trainschedule.html">Get
+                        Train Schedule</a></li>
+                <li><i class="fa-solid fa-spinner" style="color: white;"></i> <a href="./getpnrstatus.html">Get PNR
+                        Status</a></li>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <section id="main_content" class="section-1">
+        <p class="track" id="head"><span class="wel">Welcome to Railway Services</span></p>
+    </section>
+
+    <section class="section-2" id="section2">
+        <h1>Train Gallery</h1>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJjAgAHO1nOSclCYivBSxUVLlk7AejhOMcdE6T1yX23DQcAqX1e8wgQzL2xXWtYuG07jJtCqFzz9RJHAmJtOQO1kBCMram1duBZkUI4CHGwGtWKYktHT9LmDqCW-QQjmiDkiHkjuuqCZcy/s1600/berlin_hauptbahnof_3.JPG"
+                    alt="Train 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5xw6Pw7hDu-9r89QVtzP0CDd_3oJXnp5uDA&s"
+                    alt="Train 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://udaipurkiran.com/wp-content/uploads/2024/08/Special-Trains-768x403.webp"
+                    alt="Train 3">
+            </div>
+            <div class="gallery-item">
+                <img src="https://etimg.etb2bimg.com/thumb/113599042.cms?width=400&height=300" alt="Train 4">
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.railway-technology.com/wp-content/uploads/sites/13/2020/07/dysten-1-wy%C5%9Bwietlacz-odjazdy-przyjazdy-LED-display-departures-arrivals-railway.jpg"
+                    alt="Train 5">
+            </div>
+            <div class="gallery-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeXcKgPjdku-_2nkT1rPj9u-8QQZAm9xubRg&s"
+                    alt="Train 6">
+            </div>
+        </div>
+    </section>
+
+    <section class="section-3" id="section3">
+        <div class="section-3-main1">
+            <h1>E-TICKETS ADVANTAGES</h1>
+            <div class="main-3">
+                <div class="section-3-child3">
+                    <div>
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <p class="section-3-para">
+                        It's very easy to order a train ticket <br> online.
+                        E-ticket can not be lost or <br> forgotten at home.
+                    </p>
+                </div>
+                <div class="section-3-child3">
+                    <div>
+                        <i class="fa-solid fa-hotel"></i>
+                    </div>
+                    <p class="section-3-para">
+                        There's no need to go to the ticket office <br> additionally
+                        before your trip.Save your <br> money and nerves.
+                    </p>
+                </div>
+                <div class="section-3-child3">
+                    <div>
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <p class="section-3-para">To order tickets all you need is Internet, a <br> couple minutes
+                        and apayment card. <br> Grab bonuses and discounts.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="section-3-main2">
+            <h2>About Us</h2>
+            <p>Indian Railway Catering and Tourism Corporation Ltd. (IRCTC) is a “Mini Ratna (Category-I)” Central
+                Public Sector Enterprise under Ministry of Railways, Government of India. IRCTC was incorporated on 27th
+                September, 1999 as an extended arm of the Indian Railways to upgrade, professionalize and manage the
+                catering and hospitality services at stations, on trains and other locations and to promote domestic and
+                international tourism through development of budget hotels, special tour packages, information &
+                commercial publicity and global reservation systems. The authorized capital of the company is 250 crores
+                and paid up capital is 160 crores. It's registered and Corporate Office is situated at New Delhi.</p>
+            <br>
+            <p>
+                The core activities of the Company are detailed below:
+                <br><br>
+                Catering & Hospitality <br>
+                Internet Ticketing <br>
+                Travel &Tourism <br>
+                Packaged Drinking Water (Rail Neer)
+            </p>
+        </div>
+    </section>
+
+    <footer id="section4">
+        <div class="container3">
+            <div class="footer-section menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="#">Press Centre</a></li>
+                    <li><a href="#">Travel News</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Best Price Guarantee</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contacts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fa fa-phone"></i> +444 5533 8866</li>
+                    <li><i class="fa fa-skype"></i> book.your.train</li>
+                    <li><i class="fa fa-envelope"></i> mail@bookyourtrain.com</li>
+                    <li><i class="fa fa-map-marker"></i> 5138 Little Shadow Gardens, Del Monte, Alaska, 99631-4129, US
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-section blog-posts">
+                <h3>Blog Posts</h3>
+                <div class="post">
+                    <!-- <img src="#" alt="Blog post 1"> -->
+                    <p>Lorem ipsum dolor sit amet, consectetur</p>
+                    <small>1 day ago</small>
+                </div>
+                <div class="post">
+                    <!-- <img src="#" alt="Blog post 2"> -->
+                    <p>Ut enim ad minim veniam, quis nostrud</p>
+                    <small>247 years ago</small>
+                </div>
+            </div>
+            <div class="footer-section subscribe">
+                <h3>Subscribe</h3>
+                <p>Be aware of news</p>
+                <div class="social-media">
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-google"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; margin-left: 2%;" class="bottom">
+            <img src="./Images/logo.png" alt="" width="4%" style="background-color: white; border-radius:10px ;"
+                class="bottom_img"><span style="margin-left: 1%; font-size: 1.2rem; font-style: italic;">Book<span
+                    style="color: orange;">Y</span>ourTrain</span>
+        </div>
+    </footer>
+
+    <script>
+
+        let subMenu = document.getElementById("subMenu");
+        let service = document.getElementById("service");
+        let sidebar = document.getElementById("bar");
+        let items = document.getElementById("items");
+        let subMenuOptions = subMenu.querySelectorAll("a");
+        
+        function toggleBar() {
+            items.classList.toggle("open-items")
+        }
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+
+          
+        subMenuOptions.forEach(option => {
+            option.addEventListener("click", () => {
+                subMenu.classList.remove("open-menu");
+            });
+        });
+
+
+        document.addEventListener("click", (e) => {
+            if (!items.contains(e.target) && !sidebar.contains(e.target)) {
+                items.classList.remove("open-items");
+            }
+        })
+
+        document.addEventListener("click", (e) => {
+            if (!subMenu.contains(e.target) && !service.contains(e.target)) {
+                subMenu.classList.remove("open-menu");
+            }           
+        })
+
+    </script>
+</body>
+
+</html>
